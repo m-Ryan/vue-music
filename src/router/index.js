@@ -1,7 +1,21 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
+//导航页面
 import Index from '../page/Index.vue'
-import SongListDetail from '../page/SongListDetail.vue'
+import Artists from '../page/Artistslib.vue'
+import Albumlib from '../page/Albumlib.vue'
+import Ranklib from '../page/Ranklib.vue'
+import Classifylib from '../page/Classifylib.vue'
+import Radiolib from '../page/Radiolib.vue'
+import MVlib from '../page/MVlib.vue'
+
+import Play from '../page/Play.vue'
+import MVDetail from '../page/MVDetail.vue'
+import Singer from '../page/Singer.vue'
+import RadioPage from '../page/RadioDetail.vue'
+import SearchPage from '../page/SearchPage.vue'
+import SongDetail from '../page/SongDetail.vue'
 
 Vue.use(Router)
 export default new Router({
@@ -13,9 +27,74 @@ export default new Router({
       component: Index
     },
     {
-      path: '/songlist/:id',
-      name: 'SongListDetail',
-      component: SongListDetail
+      path: '/artists/:id?',
+      name: 'Artists',
+      component: Artists
+    },
+    {
+      path: '/album/:id?',
+      name: 'Albumlib',
+      component: Albumlib
+    },
+    {
+      path: '/rank',
+      name: 'Ranklib',
+      component: Ranklib
+    },
+    {
+      path: '/classify',
+      name: 'Classifylib',
+      component: Classifylib
+    },
+    {
+      path: '/radio/:id?',
+      name: 'Radiolib',
+      component: Radiolib
+    },
+    {
+      path: '/radio_page/:id',
+      name: 'RadioPage',
+      component: RadioPage
+    },
+    {
+      path: '/mv/:id?',
+      name: 'MV',
+      component: MVlib
+    },
+    {
+      path: '/singer/:id',
+      name: 'Singer',
+      component: Singer
+    },
+    {
+      path: '/song/:id',
+      name: 'SongDetail',
+      component: SongDetail
+    },
+    {
+      path: '/play',
+      name: 'play',
+      component: Play
+    },
+    {
+      path: '/play/song*/:id',
+      name: 'songplay',
+      component: Play
+    },
+     {
+      path: '/play/album/:id',
+      name: 'albumplay',
+      component: Play
+    },
+    {
+      path: '/play/mv/:id',
+      name: 'mvplay',
+      component: MVDetail
+    },
+    {
+      path: '/search*',
+      name: 'search',
+      component: SearchPage
     }
   ]
 })

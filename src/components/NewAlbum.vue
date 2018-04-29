@@ -6,15 +6,15 @@
       <el-carousel-item v-for="(page, pindex) in albumsList" :key="pindex">
         <ul class="main clearfix">
           <li  v-for="(item, index) in page" :key="index" class="song-menu-item">
-            <div class="show-img">
-              <router-link v-bind:to="'/songlist/'+item.id">
+            <div class="show-img scale-img">
+              <router-link target="_blank" v-bind:to="'/play/album/'+item.id">
                 <img v-bind:src="item.picUrl" alt="">
                 <div class="mask">
                   <i class="el-icon-caret-right"></i>
                 </div>
               </router-link>
             </div>
-            <h3 class="nowrap-text"><router-link v-bind:to="'/songlist/'+item.id">{{ item.name }}</router-link></h3>
+            <h3 class="nowrap-text"><router-link target="_blank" v-bind:to="'/play/album/'+item.id">{{ item.name }}</router-link></h3>
             <div><span>{{item.singer}}</span></div>
           </li>
         </ul>
@@ -26,41 +26,8 @@
 
 <script>
 export default {
-  name: "SongListRecommend",
-  async created() {
-    let result = null;
-    try {
-      result = await this.$axios(this.$host + "top/album?offset=0&limit=20");
-    } catch (e) {
-      this.$message({
-        message: "发生未知错误",
-        type: "error"
-      });
-    }
-    if (result.status === 200) {
-      let albums = result.data.albums.map(item=>{
-          let song ={};
-          song.id = item.id;
-          song.name = item.name;
-          song.picUrl = item.blurPicUrl;
-          song.singer = item.artists.map(item=>item.name).join('，');
-          song.alias = item.alias;
-          return song;
-      });
-      let temp = [];
-      let len = Math.floor(albums.length / 5);
-      for(let i=0; i< len; i++){
-
-        temp.push(albums.splice(0, 5))
-      }
-      this.albumsList = temp;
-    }
-  },
-  data() {
-    return {
-      albumsList: []
-    };
-  }
+  name: "NewAlbum",
+  props: ["albumsList"],
 };
 </script>
 

@@ -67,6 +67,9 @@ select:-webkit-autofill:focus {
 .v-top{
   vertical-align: top;
 }
+.v-mid{
+  vertical-align: middle;
+}
 .inline-block {
   display: inline-block;
 }
@@ -102,8 +105,23 @@ select:-webkit-autofill:focus {
 .float-right {
   float: right;
 }
+
+.scale-img{
+  overflow: hidden;
+}
+.scale-img img{
+  transform: scale(1);
+  transition: transform .75s;
+}
+.scale-img:hover img{
+ transform: scale(1.1);
+}
+
 .main{
   width: 1200px;
   display: block;
   margin: 0 auto;
+}
+.recommend {
+  min-height: 560px;
 }

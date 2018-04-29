@@ -3,18 +3,18 @@
     <div class="recommend">
     <h2 class="title">M V</h2>
     <el-carousel v-bind:autoplay="false" arrow="always"  height="450px">
-      <el-carousel-item v-for="(page, pindex) in albumsList" :key="pindex">
+      <el-carousel-item v-for="(page, pindex) in MvList" :key="pindex">
         <ul class="main clearfix">
           <li  v-for="(item, index) in page" :key="index" class="song-menu-item">
-            <div class="show-img">
-              <router-link v-bind:to="'/songlist/'+item.id">
+            <div class="show-img scale-img">
+              <router-link target="_blank" v-bind:to="'/play/mv/'+item.id">
                 <img v-bind:src="item.picUrl" alt="">
                 <div class="mask">
                   <i class="el-icon-caret-right"></i>
                 </div>
               </router-link>
             </div>
-            <h3 class="nowrap-text"><router-link v-bind:to="'/songlist/'+item.id">{{ item.name }}</router-link></h3>
+            <h3 class="nowrap-text"><router-link target="_blank" v-bind:to="'/play/mv/'+item.id">{{ item.name }}</router-link></h3>
             <div><span>播放量：{{ Math.floor(item.playCount)}}</span></div>
           </li>
         </ul>
@@ -27,40 +27,9 @@
 <script>
 export default {
   name: "MV",
-  async created() {
-    let result = null;
-    try {
-      result = await this.$axios(this.$host + "top/mv?limit=80");
-    } catch (e) {
-      this.$message({
-        message: "发生未知错误",
-        type: "error"
-      });
-    }
-    if (result.status === 200) {
-      let albums = result.data.data.map(item=>{
-          let song ={};
-          song.id = item.id;
-          song.name = item.name;
-          song.picUrl = item.cover;
-          song.playCount = item.playCount;
-          song.singer = item.artistName;
-          return song;
-      });
-      let temp = [];
-      let size = 10;
-      let len = Math.floor(albums.length / size);
-      for(let i=0; i< len; i++){
-        temp.push(albums.splice(0, size))
-      }
-      this.albumsList = temp;
-    }
-  },
-  data() {
-    return {
-      albumsList: []
-    };
-  }
+  props:[
+    "MvList"
+  ]
 };
 </script>
 
@@ -98,6 +67,7 @@ h3{
 .show-img:hover .mask{
   opacity: 1;
 }
+
 .mask{
   opacity: 0;
   transition: all .3s;

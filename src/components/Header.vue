@@ -1,48 +1,59 @@
 <template>
-  <div class="header main clearfix">
-    <div class="logo"><img src="../assets/images/logo.png" alt=""></div>
-    <ul class="header-nav clearfix">
-       <li v-for="(item, index) in navigations" :key="index" @click="active(index)">
-          <router-link v-bind:class="activeIndex===index?'nav-link-active':''" v-bind:to="item.path">{{ item.name }}</router-link>
-      </li>
-    </ul>
-    <div class="search-container"><el-input v-model="searchVaue" placeholder="搜索音乐、歌手" suffix-icon="el-icon-search" @keyup.enter.native="submit"></el-input></div>
+  <div class="header">
+    <div class="main clearfix">
+      <div class="logo"><img src="../assets/images/logo.png" alt=""></div>
+        <ul class="header-nav clearfix">
+          <li v-for="(item, index) in navigations" :key="index" @click="active(index)">
+              <router-link v-bind:class="activeIndex===index?'nav-link-active':''" v-bind:to="item.path">{{ item.name }}</router-link>
+          </li>
+        </ul>
+        <div class="search-container"><el-input v-model="searchVaue" placeholder="搜索音乐、歌手" suffix-icon="el-icon-search" @keyup.enter.native="submit"></el-input></div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: "HelloWorld",
+  created(){
+    let match = this.navigations.filter(item=>window.location.pathname.search(item.path) === 0);
+    if(match.length){
+      this.activeIndex = match[match.length-1].key;
+    }
+  },
   data() {
     return {
       navigations: [
         {
+          key: 0,
           name: "首页",
           path: "/"
         },
         {
+          key: 1,
           name: "歌手",
-          path: "/"
+          path: "/artists"
         },
         {
+          key: 2,
           name: "专辑",
-          path: "/"
+          path: "/album"
         },
         {
+          key: 3,
           name: "排行榜",
-          path: "/"
+          path: "/rank"
         },
+
         {
-          name: "分类歌单",
-          path: "/"
-        },
-        {
+          key: 4,
           name: "电台",
-          path: "/"
+          path: "/radio"
         },
         {
+          key: 5,
           name: "MV",
-          path: "/"
+          path: "/mv"
         }
       ],
       activeIndex: 0,
@@ -54,7 +65,7 @@ export default {
       this.activeIndex = index;
     },
     submit(){
-
+      this.$router.push(`/search?key=${this.searchVaue}`)
     }
   }
 };
@@ -65,6 +76,7 @@ export default {
 .header {
   height: 90px;
   line-height: 90px;
+  border-bottom: 1px solid #cccccc;
 }
 .logo {
   float: left;
@@ -78,6 +90,7 @@ export default {
 }
 .header-nav{
   float: left;
+  margin-left: 50px;
 }
 .header-nav li {
   float: left;
@@ -100,7 +113,7 @@ export default {
   color: #31c27c;
 }
 .search-container{
-  float: left;
+  float: right;
   width: 220px;
 }
 </style>

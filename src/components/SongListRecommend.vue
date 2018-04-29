@@ -3,18 +3,18 @@
     <div class="recommend">
     <h2 class="title">歌单推荐</h2>
     <el-carousel v-bind:autoplay="false" arrow="always"  height="350px">
-      <el-carousel-item v-for="(page, pindex) in songlistPage" :key="pindex">
+      <el-carousel-item v-for="(page, pindex) in songlist" :key="pindex">
         <ul class="main clearfix">
           <li  v-for="(item, index) in page" :key="index" class="song-menu-item">
-            <div class="show-img">
-              <router-link v-bind:to="'/songlist/'+item.id">
+            <div class="show-img scale-img">
+              <router-link target="_blank" v-bind:to="'/play/songlist/'+item.id">
                 <img v-bind:src="item.picUrl" alt="">
                 <div class="mask">
                   <i class="el-icon-caret-right"></i>
                 </div>
               </router-link>
             </div>
-            <h3 class="nowrap-text"><router-link v-bind:to="'/songlist/'+item.id">{{ item.name }}</router-link></h3>
+            <h3 class="nowrap-text"><router-link target="_blank" v-bind:to="'/play/songlist/'+item.id">{{ item.name }}</router-link></h3>
             <p>播放量：{{ Math.floor(item.playCount)}}</p>
           </li>
         </ul>
@@ -27,28 +27,7 @@
 <script>
 export default {
   name: "SongListRecommend",
-  async created() {
-    let result = null;
-    try {
-      result = await this.$axios(this.$host + "personalized?limit=10&order=hot");
-    } catch (e) {
-      this.$message({
-        message: "发生未知错误",
-        type: "error"
-      });
-    }
-    if (result.status === 200) {
-      let temp = []
-      temp.push(result.data.result.splice(0, 5));
-      temp.push(result.data.result);
-      this.songlistPage = temp;
-    }
-  },
-  data() {
-    return {
-      songlistPage: []
-    };
-  }
+  props: ["songlist"]
 };
 </script>
 

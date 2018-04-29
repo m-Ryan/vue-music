@@ -10,6 +10,6 @@ export default {
 
 <style>
 #app {
-  margin-top: -1em;
+
 }
 </style>

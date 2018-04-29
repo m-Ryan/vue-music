@@ -3,11 +3,11 @@
     <div class="recommend">
     <h2 class="title">新歌首发</h2>
     <el-carousel v-bind:autoplay="false" arrow="always"  height="350px">
-      <el-carousel-item v-for="(page, pindex) in songlistPage" :key="pindex">
+      <el-carousel-item v-for="(page, pindex) in newSongList" :key="pindex">
         <ul class="main clearfix">
           <li  v-for="(item, index) in page" :key="index" class="song-menu-item clearifx">
-            <div class="show-img float-left">
-              <router-link v-bind:to="'/songlist/'+item.id">
+            <div class="show-img scale-img float-left">
+              <router-link target="_blank" v-bind:to="'/song/'+item.id">
                 <img v-bind:src="item.picUrl" alt="">
                 <div class="mask">
                   <i class="el-icon-caret-right"></i>
@@ -15,7 +15,7 @@
               </router-link>
             </div>
            <div class="show-content float-left">
-              <h3 class="nowrap-text"><router-link v-bind:to="'/songlist/'+item.id">{{ item.name }}</router-link></h3>
+              <h3 class="nowrap-text"><router-link target="_blank" v-bind:to="'/song/'+item.id">{{ item.name }}</router-link></h3>
               <p>{{ item.singer }}</p>
            </div>
           </li>
@@ -28,37 +28,8 @@
 
 <script>
 export default {
-  name: "SongListRecommend",
-  async created() {
-    let result = null;
-    try {
-      result = await this.$axios(this.$host + "personalized/newsong");
-    } catch (e) {
-      this.$message({
-        message: "发生未知错误",
-        type: "error"
-      });
-    }
-    if (result.status === 200) {
-      let temp = []
-      let data = result.data.result.map(item=>{
-        let song ={};
-        song.id = item.id;
-        song.name = item.name
-        song.picUrl = item.song.album.picUrl;
-        song.singer = item.song.artists.map(item=>item.name).join('，');
-        song.alias = item.song.alias;
-        return song;
-      })
-      temp.push(data.splice(0, 9));
-      this.songlistPage = temp;
-    }
-  },
-  data() {
-    return {
-      songlistPage: []
-    };
-  }
+  name: "NewSongRecommend",
+  props: ["newSongList"]
 };
 </script>
 
