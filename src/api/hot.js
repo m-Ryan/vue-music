@@ -1,6 +1,6 @@
 import axios from 'axios';
 import response from './response'
-import clock from '../util/clock'
+import moment from '../util/moment'
 export default class Api {
   static host = "http://localhost:3000/"
 
@@ -158,7 +158,7 @@ export default class Api {
           song.picUrl = item.al.picUrl;
           song.album = item.al.name;
           song.alias = item.alias;
-          song.playTime = clock(item.dt);
+          song.playTime = moment.clock(item.dt);
           song.artist = item.ar.map(item=>item.name).join('/');
           song.lrc = `${this.host}lyric?id=${item.id}`;
           song.src = `http://music.163.com/song/media/outer/url?id=${
@@ -189,7 +189,7 @@ export default class Api {
           mv.name = item.name;
           mv.picUrl = item.imgurl;
           mv.artists = item.artistName;
-          mv.playTime = clock(item.duration);
+          mv.playTime = moment.clock(item.duration);
           mv.playCount = item.playCount;
           return mv;
       });
@@ -221,7 +221,7 @@ export default class Api {
           song.picUrl = item.al.picUrl;
           song.album = item.al.name;
           song.alias = item.alias;
-          song.playTime = clock(item.dt);
+          song.playTime = moment.clock(item.dt);
           song.artist = item.ar.map(item=>item.name).join('/');
           song.lrc = `${this.host}lyric?id=${item.id}`;
           song.src = `http://music.163.com/song/media/outer/url?id=${
