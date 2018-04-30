@@ -17,7 +17,6 @@
     "css-loader": "^0.28.11",
     "element-ui": "^2.3.6",
     "es6-promise": "^4.2.4",
-    "perfect-scrollbar": "^1.3.0",
     "vue": "^2.5.2",
     "vue-aplayer": "^1.5.0",
     "vue-aplayer-plugin": "^1.2.0",

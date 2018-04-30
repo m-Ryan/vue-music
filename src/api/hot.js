@@ -1,14 +1,14 @@
 import axios from 'axios';
 import response from './response'
 import moment from '../util/moment'
+import host from '../../config/host'
 export default class Api {
-  static host = "http://localhost:3000/"
 
     //获取热门歌单
   static async getSonglist(offset, limit){
     let result = null;
     try {
-      result = await axios(this.host + `personalized?offset=${offset}limit=${limit}&order=hot`);
+      result = await axios(host + `personalized?offset=${offset}limit=${limit}&order=hot`);
     } catch (e) {
       console.log(e);
     }
@@ -23,7 +23,7 @@ export default class Api {
   static async getNewSong(){
     let result = null;
     try {
-      result = await axios(this.host + "personalized/newsong");
+      result = await axios(host + "personalized/newsong");
     } catch (e) {
       console.log(e);
     }
@@ -46,7 +46,7 @@ export default class Api {
   static async getHotMv(offset, limit){
     let result = null;
     try {
-      result = await axios(this.host + `top/mv?offset=${offset}&limit=${limit}`);
+      result = await axios(host + `top/mv?offset=${offset}&limit=${limit}`);
     } catch (e) {
       console.log(e)
     }
@@ -69,7 +69,7 @@ export default class Api {
   static async getHotAlbum(offset, limit){
     let result = null;
     try {
-      result = await axios(this.host + `top/album?offset=${offset}&limit=${limit}`);
+      result = await axios(host + `top/album?offset=${offset}&limit=${limit}`);
     } catch (e) {
       console.log(e)
     }
@@ -92,7 +92,7 @@ export default class Api {
   static async getHotArtists(offset, limit){
     let result = null;
     try {
-      result = await axios(this.host + `top/artists?offset=${offset}&limit=${limit}`);
+      result = await axios(host + `top/artists?offset=${offset}&limit=${limit}`);
     } catch (e) {
       console.log(e)
     }
@@ -114,7 +114,7 @@ export default class Api {
   static async getNewAlbums(offset, limit){
     let result = null;
     try {
-      result = await axios(this.host + `top/album?offset=${offset}&limit=${limit}`);
+      result = await axios(host + `top/album?offset=${offset}&limit=${limit}`);
     } catch (e) {
       console.log(e)
     }
@@ -137,7 +137,7 @@ export default class Api {
   static async getSinger(id){
     let result = null;
     try {
-      result = await axios(this.host + `artists?id=${id}`);
+      result = await axios(host + `artists?id=${id}`);
     } catch (e) {
       console.log(e)
     }
@@ -178,7 +178,7 @@ export default class Api {
   static async getSingerMV(id, pagesize=10){
     let result = null;
     try {
-      result = await axios(this.host + `artist/mv?id=${id}`);
+      result = await axios(host + `artist/mv?id=${id}`);
     } catch (e) {
       console.log(e)
     }
@@ -207,7 +207,7 @@ export default class Api {
     static async getRank(id){
       let result = null;
       try {
-        result = await axios(this.host + `top/list?idx=${id}`);
+        result = await axios(host + `top/list?idx=${id}`);
       } catch (e) {
         console.log(e)
       }
@@ -240,7 +240,7 @@ export default class Api {
     static async getRadioCategory(){
       let result = null;
       try {
-        result = await axios(this.host + `dj/catelist`);
+        result = await axios(host + `dj/catelist`);
       } catch (e) {
         console.log(e)
       }
@@ -261,7 +261,7 @@ export default class Api {
     static async getRadio(id){
       let result = null;
       try {
-        result = await axios(this.host + `dj/recommend/type?type=${id}`);
+        result = await axios(host + `dj/recommend/type?type=${id}`);
       } catch (e) {
         console.log(e)
       }

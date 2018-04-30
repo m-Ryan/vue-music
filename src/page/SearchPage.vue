@@ -27,7 +27,9 @@
                     <span class="play"><i class="el-icon-service"></i></span>
                   </router-link>
               </div>
-              <div class=" songlist_album">{{ item.artist }}</div>
+              <div class=" songlist_album">
+                <router-link v-for="(singer, index) in item.artistArr" :key="index" :to="'/singer/'+singer.id">{{singer.name}}</router-link>
+              </div>
               <div class=" songlist_album">{{ item.album }}</div>
               <div class=" songlist_time">{{ item.playTime }}</div>
           </li>

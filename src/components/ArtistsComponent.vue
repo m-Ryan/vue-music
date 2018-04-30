@@ -1,28 +1,29 @@
 <template>
   <div class="recommend-wrap">
+    <div class="singer-bg"></div>
     <div class="recommend">
-    <h2 class="title">热门歌手</h2>
-      <ul class="main clearfix">
-        <li v-if="artists.length" v-for="(item, index) in currentPage" :key="index" class="song-menu-item  text-center">
-         <div class="item-container">
-            <div class="show-img ">
-            <router-link v-bind:to="'/singer/'+item.id">
-                <img v-bind:src="item.picUrl" alt="">
-              </router-link>
-            </div>
-            <h3 class="nowrap-text"><router-link v-bind:to="'/singer/'+item.id">{{ item.name }}</router-link></h3>
-         </div>
-        </li>
-      </ul>
-     <el-pagination
-        layout="prev, pager, next"
-        :total="100"
-        :current-page="parseInt(pageIndex)"
-        @current-change="getPageChange"
-        class="text-center"
-        >
-      </el-pagination>
-  </div>
+      <h2 class="title">热门歌手</h2>
+        <ul class="main clearfix">
+          <li v-if="artists.length" v-for="(item, index) in currentPage" :key="index" class="song-menu-item  text-center">
+          <div class="item-container">
+              <div class="show-img ">
+              <router-link v-bind:to="'/singer/'+item.id">
+                  <img v-bind:src="item.picUrl" alt="">
+                </router-link>
+              </div>
+              <h3 class="nowrap-text"><router-link v-bind:to="'/singer/'+item.id">{{ item.name }}</router-link></h3>
+          </div>
+          </li>
+        </ul>
+      <el-pagination
+          layout="prev, pager, next"
+          :total="100"
+          :current-page="parseInt(pageIndex)"
+          @current-change="getPageChange"
+          class="text-center"
+          >
+        </el-pagination>
+    </div>
   </div>
 </template>
 
@@ -74,9 +75,16 @@ export default {
 <style scoped>
 .recommend-wrap {
   background: #f5f5f5;
-  padding: 20px;
 }
-
+.recommend{
+    padding: 20px;
+}
+.singer-bg{
+  background: url('../assets/images/bg_singer.jpg') no-repeat;
+  height: 400px;
+  width: 100%;
+  overflow: hidden;
+}
 .song-menu{
   height: auto;;
 }

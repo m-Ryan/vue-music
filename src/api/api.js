@@ -1,12 +1,12 @@
 import axios from 'axios';
 import response from './response'
 import moment from '../util/moment'
+import host from '../../config/host'
 export default class Api {
-  static host = "http://localhost:3000/"
   //获取单首歌曲
   static async getSong(id){
     let result = {};
-    let url =this.host + `song/detail?ids=${id}`
+    let url =host + `song/detail?ids=${id}`
     try {
       result = await axios(url);
     } catch (e) { }
@@ -22,7 +22,7 @@ export default class Api {
           data.id
         }.mp3`;
         song.publishTime = moment.formatDate(data.publishTime);
-        song.lrc = `${this.host}lyric?id=${data.id}`;
+        song.lrc = `${host}lyric?id=${data.id}`;
         song.pic = data.al.picUrl;
 
       return response(200, [song])
@@ -37,7 +37,7 @@ export default class Api {
    */
    static async getSonglist(id){
     let result = {};
-    let url =this.host + `playlist/detail?id=${id}`
+    let url =host + `playlist/detail?id=${id}`
     try {
       result = await axios(url);
     } catch (e) {
@@ -55,7 +55,7 @@ export default class Api {
         song.src = `http://music.163.com/song/media/outer/url?id=${
           item.id
         }.mp3`;
-        song.lrc = `${this.host}lyric?id=${item.id}`;
+        song.lrc = `${host}lyric?id=${item.id}`;
         song.pic;
         return song;
       });
@@ -67,7 +67,7 @@ export default class Api {
   //获取MV
   static async getMV(id){
     let result = {};
-    let url =this.host + `mv?mvid=${id}`
+    let url =host + `mv?mvid=${id}`
     try {
       result = await axios(url);
     } catch (e) {
@@ -81,8 +81,8 @@ export default class Api {
       song.title = data.name;
       song.artist = data.artists.map(item => item.name).join(" / ");
       song.singerId = data.artistName;
-      song.src = this.host +`mv/url?url=`+ Object.values(data.brs)[Object.keys(data.brs).length-1];
-      song.lrc = `${this.host}lyric?id=${data.id}`;
+      song.src = host +`mv/url?url=`+ Object.values(data.brs)[Object.keys(data.brs).length-1];
+      song.lrc = `${host}lyric?id=${data.id}`;
       song.pic = data.cover;
 
       return response(200, song)
@@ -93,7 +93,7 @@ export default class Api {
   //获取专辑
   static async getAlbum(id){
     let result = {};
-    let url =this.host + `album?id=${id}`
+    let url =host + `album?id=${id}`
     try {
       result = await axios(url);
     } catch (e) {
@@ -111,7 +111,7 @@ export default class Api {
         song.src = `http://music.163.com/song/media/outer/url?id=${
           item.id
         }.mp3`;
-        song.lrc = `${this.host}lyric?id=${item.id}`;
+        song.lrc = `${host}lyric?id=${item.id}`;
         song.pic;
         return song;
       })
@@ -123,7 +123,7 @@ export default class Api {
     //获取电台详情
     static async getRadioDetail(id){
       let result = {};
-      let url =this.host + `dj/detail?rid=${id}`
+      let url =host + `dj/detail?rid=${id}`
       try {
         result = await axios(url);
       } catch (e) { }
@@ -131,7 +131,7 @@ export default class Api {
       let program = null;
       let programRs = {};
       try {
-        programRs = await axios(this.host + `dj/program?rid=${id}&limit=100`);
+        programRs = await axios(host + `dj/program?rid=${id}&limit=100`);
       } catch (e) { }
       if(programRs.status === 200){
         program = programRs.data.programs;
@@ -158,7 +158,7 @@ export default class Api {
             program.src = `http://music.163.com/song/media/outer/url?id=${
               item.mainSong.id
             }.mp3`;
-            program.lrc = `${this.host}lyric?id=${item.mainSong.id}`;
+            program.lrc = `${host}lyric?id=${item.mainSong.id}`;
             program.picUrl = item.coverUrl;
             return program;
           }).reverse():null;
@@ -172,7 +172,7 @@ export default class Api {
     //获取搜索
   static async getSearch(key, offset, limit) {
     let result = {};
-    let url =this.host + `search?keywords=${key}&offset=${offset}&limit=${limit}`
+    let url =host + `search?keywords=${key}&offset=${offset}&limit=${limit}`
     try {
       result = await axios(url);
     } catch (e) {
@@ -188,12 +188,13 @@ export default class Api {
         song.title = item.name;
         song.album = item.album.name;
         song.artist = item.artists.map(item => item.name).join("/");
+        song.artistArr = item.artists;
         song.singerId = item.artists.map(item => item.id);
         song.playTime = moment.clock(item.duration);
         song.src = `http://music.163.com/song/media/outer/url?id=${
           item.id
         }.mp3`;
-        song.lrc = `${this.host}lyric?id=${item.id}`;
+        song.lrc = `${host}lyric?id=${item.id}`;
         song.banned = !!(item.fee<=0)
         song.pic;
         return song;
@@ -205,7 +206,7 @@ export default class Api {
 
   static async getLrc(id){
     let result = {};
-    let url =`${this.host}lyric?id=${id}`;
+    let url =`${host}lyric?id=${id}`;
     try {
       result = await axios(url);
     } catch (e) {
@@ -228,7 +229,7 @@ export default class Api {
    */
   static async getComment(type, id, offset, limit){
     let result = {};
-    let url =this.host + `comment/${type}?id=${id}&offset=${offset}&limit=${limit}`
+    let url =host + `comment/${type}?id=${id}&offset=${offset}&limit=${limit}`
     try {
       result = await axios(url);
     } catch (e) {
